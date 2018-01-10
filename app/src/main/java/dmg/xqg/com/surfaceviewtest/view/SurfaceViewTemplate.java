@@ -27,11 +27,11 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     private Paint mPaint;
     //路径
     private Path mPath;
+
     public SurfaceViewTemplate(Context context) {
         super(context);
         initView();
     }
-
 
     public SurfaceViewTemplate(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,12 +44,14 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     }
 
     private void initView() {
+        // 获取 holder
         mHolder = getHolder();
         //添加回调
         mHolder.addCallback(this);
-        mPath=new Path();
+        // 路径
+        mPath = new Path();
         //初始化画笔
-        mPaint=new Paint();
+        mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(6);
         mPaint.setAntiAlias(true);
@@ -57,15 +59,15 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
         setFocusable(true);
         setFocusableInTouchMode(true);
         this.setKeepScreenOn(true);
-
-
     }
+
     //Surface的生命周期
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         mIsDrawing=true;
         new Thread(this).start();
     }
+
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
@@ -74,7 +76,6 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         mIsDrawing=false;
-
     }
 
     @Override
@@ -96,16 +97,18 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     private void draw() {
         try{
             //锁定画布并返回画布对象
-            mCanvas=mHolder.lockCanvas();
+            mCanvas = mHolder.lockCanvas();
             //接下去就是在画布上进行一下draw
             mCanvas.drawColor(Color.WHITE);
             mCanvas.drawPath(mPath,mPaint);
 
         }catch (Exception e){
+            e.printStackTrace();
         }finally {
             //当画布内容不为空时，才post，避免出现黑屏的情况。
-            if(mCanvas!=null)
+            if(mCanvas!=null){
                 mHolder.unlockCanvasAndPost(mCanvas);
+            }
         }
     }
 
@@ -120,15 +123,15 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
         int y= (int) event.getY();
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                Log.d(TAG, "onTouchEvent: down");
+                Log.e(TAG, "ACTION_DOWN");
                 mPath.moveTo(x,y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.d(TAG, "onTouchEvent: move");
+                Log.e(TAG, "ACTION_MOVE");
                 mPath.lineTo(x,y);
                 break;
             case MotionEvent.ACTION_UP:
-                Log.d(TAG, "onTouchEvent: up");
+                Log.e(TAG, "ACTION_UP");
                 break;
         }
         return true;
@@ -139,7 +142,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
      * @return true
      */
     public boolean clean(){
-        mPath.reset();
+        mPath.reset();// 清空路径
         return true;
     }
 
