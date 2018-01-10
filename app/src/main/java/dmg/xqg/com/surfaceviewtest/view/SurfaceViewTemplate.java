@@ -22,7 +22,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     //用于绘图的Canvas
     private Canvas mCanvas;
     //子线程标志位
-    private boolean mIsDrawing;
+    private boolean mIsSurfaceCreated;
     //画笔
     private Paint mPaint;
     //路径
@@ -64,7 +64,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     //Surface的生命周期
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        mIsDrawing=true;
+        mIsSurfaceCreated = true;
         new Thread(this).start();
     }
 
@@ -75,13 +75,13 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        mIsDrawing=false;
+        mIsSurfaceCreated = false;
     }
 
     @Override
     public void run() {
         long start =System.currentTimeMillis();
-        while(mIsDrawing){
+        while(mIsSurfaceCreated){
             draw();
             long end = System.currentTimeMillis();
             if(end-start<100){
