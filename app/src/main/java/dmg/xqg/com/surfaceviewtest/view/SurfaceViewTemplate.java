@@ -104,7 +104,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
             //锁定画布并返回画布对象
             mCanvas = mHolder.lockCanvas();
             //接下去就是在画布上进行一下draw
-            mCanvas.drawColor(Color.RED);
+            mCanvas.drawColor(Color.WHITE);// 画板的底色
             mCanvas.drawPath(mPath,mPaint);
 
         }catch (Exception e){
