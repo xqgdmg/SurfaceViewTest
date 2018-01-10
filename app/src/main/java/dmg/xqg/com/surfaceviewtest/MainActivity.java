@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.tvPlayVideo){
             startActivity(new Intent(MainActivity.this,PlayVideoActivity.class));
         }else if (v.getId() == R.id.tvCustomView){
-            startActivity(new Intent(MainActivity.this,PlayVideoActivity.class));
+            startActivity(new Intent(MainActivity.this,CustomViewActivity.class));
         }
     }
 }

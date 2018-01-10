@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="dmg.xqg.com.surfaceviewtest.CustomViewActivity">
+
+    <TextView
+        android:id="@+id/tvClean"
+        android:gravity="center"
+        android:text="清屏"
+        android:background="#5500ff00"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <dmg.xqg.com.surfaceviewtest.view.SurfaceViewTemplate
+        android:id="@+id/svt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
