@@ -82,7 +82,6 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void run() {
-        long start =System.currentTimeMillis();
 
         // 这是一个循环
         while(mIsSurfaceCreated){
@@ -90,16 +89,11 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
             // 画
             draw();
 
-            // 休眠，不用太快了，没有意义，影响性能
-            long end = System.currentTimeMillis();
-            if(end - start < 100){
-                try{
-                    long sleepTime = 100 - end + start;
-                    Log.e("chris","sleepTime=" + sleepTime);
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            //通过线程休眠以控制刷新速度（帧率）
+            try {
+                Thread.sleep(50);// 控制1s内刷新20次
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
         }
@@ -110,7 +104,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
             //锁定画布并返回画布对象
             mCanvas = mHolder.lockCanvas();
             //接下去就是在画布上进行一下draw
-            mCanvas.drawColor(Color.WHITE);
+            mCanvas.drawColor(Color.RED);
             mCanvas.drawPath(mPath,mPaint);
 
         }catch (Exception e){
@@ -118,7 +112,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
         }finally {
             //当画布内容不为空时，才post，避免出现黑屏的情况。
             if(mCanvas!=null){
-                mHolder.unlockCanvasAndPost(mCanvas);
+                mHolder.unlockCanvasAndPost(mCanvas);// 释放画布
             }
         }
     }
@@ -134,15 +128,12 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
         int y= (int) event.getY();
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
-                Log.e(TAG, "ACTION_DOWN");
                 mPath.moveTo(x,y);
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "ACTION_MOVE");
                 mPath.lineTo(x,y);
                 break;
             case MotionEvent.ACTION_UP:
-                Log.e(TAG, "ACTION_UP");
                 break;
         }
         return true;
