@@ -65,6 +65,8 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         mIsSurfaceCreated = true;
+
+        // 开启线程去绘制
         new Thread(this).start();
     }
 
@@ -81,19 +83,24 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public void run() {
         long start =System.currentTimeMillis();
+
+        // 这是一个循环
         while(mIsSurfaceCreated){
 
+            // 画
             draw();
 
-            // 休眠
-            /*long end = System.currentTimeMillis();
-            if(end-start<100){
+            // 休眠，不用太快了，没有意义，影响性能
+            long end = System.currentTimeMillis();
+            if(end - start < 100){
                 try{
-                    Thread.sleep(100-end+start);
+                    long sleepTime = 100 - end + start;
+                    Log.e("chris","sleepTime=" + sleepTime);
+                    Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }*/
+            }
 
         }
     }
