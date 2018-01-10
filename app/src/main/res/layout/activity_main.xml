@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="dmg.xqg.com.surfaceviewtest.MainActivity">
+
+    <TextView
+        android:id="@+id/tvPlayVideo"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:background="#5500ff00"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="播放视频"/>
+
+    <TextView
+        android:id="@+id/tvCustomView"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:background="#550000ff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="自定义控件"/>
+
+</LinearLayout>
