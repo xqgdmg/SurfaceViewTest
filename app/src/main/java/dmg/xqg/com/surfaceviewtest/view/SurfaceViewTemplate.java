@@ -82,15 +82,19 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     public void run() {
         long start =System.currentTimeMillis();
         while(mIsSurfaceCreated){
+
             draw();
-            long end = System.currentTimeMillis();
+
+            // 休眠
+            /*long end = System.currentTimeMillis();
             if(end-start<100){
                 try{
                     Thread.sleep(100-end+start);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
+
         }
     }
 
